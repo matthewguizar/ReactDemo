@@ -12,16 +12,21 @@ function App() {
     {rowNumber: 4, rowDescription: 'Eat a pizza', rowAssigned: 'User Two'}
   ])
 
-  function addTodo(){
+  function addTodo(description, assigned){
+    let rowNumber = 0;
     if (todos.length > 0) {
+      rowNumber = todos[todos.length - 1].rowNumber + 1;
+    } else {
+      rowNumber = 1;
+    }
       const newTodo = {
-        rowNumber: todos.length + 1, 
-        rowDescription: "New Todo",
-        rowAssigned: "User Three"
+        rowNumber: rowNumber, 
+        rowDescription: description,
+        rowAssigned: assigned
       };
+      //...destructor
       setTodos(todos => [...todos, newTodo])
       console.log(todos);
-    }
   }
 
   return (
@@ -33,10 +38,10 @@ function App() {
         </div>
         <div className='card-body'>
           <TodoTable todos={todos}/>
-          <button className="btn btn-primary" on  onClick={addTodo}>
+          <button className="btn btn-primary" onClick={addTodo}>
             Add new Todo
             </button>
-            <NewTodoForm/>
+            <NewTodoForm addTodo={addTodo}/>
         </div>
       </div>
     </div>
